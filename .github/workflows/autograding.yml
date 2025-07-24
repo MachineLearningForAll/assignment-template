@@ -29,8 +29,9 @@ jobs:
           git clone https://$TOKEN@github.com/MachineLearningForAll/hidden_tests.git temp_hidden
           cp -r temp_hidden/hidden_tests ./hidden_tests
 
+
       - name: Run visible tests
-        run: pytest tests/
+        run: PYTHONPATH=. pytest tests/
 
       - name: Run hidden tests
-        run: pytest hidden_tests/
+        run: PYTHONPATH=. pytest hidden_tests/
