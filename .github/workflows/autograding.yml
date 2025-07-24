@@ -26,7 +26,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.HIDDEN_TESTS_TOKEN }}
         run: |
-          git clone https://$TOKEN@github.com/MachineLearningForAll/hidden-tests.git temp_hidden
+          git clone https://$TOKEN@github.com/MachineLearningForAll/hidden_tests.git temp_hidden
           cp -r temp_hidden/hidden_tests ./hidden_tests
 
       - name: Run visible tests
