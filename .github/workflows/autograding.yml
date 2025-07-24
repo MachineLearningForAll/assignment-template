@@ -34,16 +34,15 @@ jobs:
         run: PYTHONPATH=. pytest tests/
 
       - name: Run hidden tests
-	run: |
-    	   PYTHONPATH=. pytest -q hidden_tests/ > hidden_test_result.txt
-  	   continue-on-error: true
+        run: PYTHONPATH=. pytest -q hidden_tests/ > hidden_test_result.txt
+        continue-on-error: true
 
       - name: Check hidden test result
-  	run: |
-    	 if grep -q "F" hidden_test_result.txt; then
-      		echo "Some hidden tests failed. Please check your implementation.";
-      		exit 1
-    	 else
-      		echo "All hidden tests passed!";
-    	 fi
+        run: |
+         if grep -q "F" hidden_test_result.txt; then
+          echo "Some hidden tests failed. Please check your implementation.";
+          exit 1
+         else
+          echo "All hidden tests passed!";
+         fi
 
