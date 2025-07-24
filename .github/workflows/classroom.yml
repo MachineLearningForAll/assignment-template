@@ -22,15 +22,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Inject hidden tests
+      - name: Clone hidden tests
         env:
           TOKEN: ${{ secrets.HIDDEN_TESTS_TOKEN }}
         run: |
-          git clone https://$TOKEN@github.com/YOUR_ORG/hidden-tests.git
-          cp -r hidden-tests/hidden_tests ./hidden_tests
+          echo "Cloning hidden tests..."
+          git clone https://$TOKEN@github.com/MachineLearningForAll/hidden-tests.git temp_hidden
+          cp -r temp_hidden/hidden_tests ./hidden_tests
+          echo "Hidden tests injected."
 
       - name: Run visible tests
-        run: pytest tests/
+        run: |
+          echo "Running visible tests..."
+          pytest tests/
 
-      - name: Run hidden tests (injected)
-        run: pytest hidden_tests/
+      - name: Run hidden tests
+        run: |
+          echo "Running hidden tests..."
+          pytest hidden_tests/
