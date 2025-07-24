@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout student submission
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -26,17 +26,11 @@ jobs:
         env:
           TOKEN: ${{ secrets.HIDDEN_TESTS_TOKEN }}
         run: |
-          echo "Cloning hidden tests..."
           git clone https://$TOKEN@github.com/MachineLearningForAll/hidden-tests.git temp_hidden
           cp -r temp_hidden/hidden_tests ./hidden_tests
-          echo "Hidden tests injected."
 
       - name: Run visible tests
-        run: |
-          echo "Running visible tests..."
-          pytest tests/
+        run: pytest tests/
 
       - name: Run hidden tests
-        run: |
-          echo "Running hidden tests..."
-          pytest hidden_tests/
+        run: pytest hidden_tests/
